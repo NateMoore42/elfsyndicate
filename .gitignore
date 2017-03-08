@@ -4,5 +4,16 @@
 .DS_Store
 .coverage
 local_settings.py
-/static
+wow.min.js
+webflow.js
+modernizr.js
+parallax.js
+scripts.js
+jquery.lettering.js
+jquery.mask.min.js
+/static/production
+/static/media
+/static/images
+/static/font-awesome
+/static/css
 /node_modules
