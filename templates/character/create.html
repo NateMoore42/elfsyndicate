@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% block title %}Character Create{% endblock %}
+{% block register_active %}active{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+    <link href="{% static 'css/character-create.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
+{% block body %}
+<!--
+<form action method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type='submit' value='submit' />
+</form>-->
+
+<div id="test"></div>
+<form action method='POST'>
+    {% csrf_token %}
+    <label for"id_c_name">Character Name:</label>
+    {{ form.c_name }}
+    {{ form.level }}
+    <label for='id_description'>Description:</label>
+    {{ form.description }}
+    <label for='id_c_class'>Class:</label>
+    {% for class in form.c_class %}
+        {{class}}
+    {% endfor %}
+    {{ form.gender }}
+    <label for='id_race'>Race:</label>
+    {{form.race}}
+    <select id='id_subrace' name='subrace' required>
+    <option value='Dragonborn'>
+      Dragonborn
+    </option>
+    <option value='Dragonborn Revenant'>
+      Dragonborn Revenant
+    </option>
+    </select>
+    <label for='id_background'>Background:</label>
+    {{ form.background }}
+    <label for='id_skills'>Skills:</label>
+    <ul id='id_skills'>
+        <li>
+            <label for="id_skills_0">
+                <input id='id_skills_0' name='skills' type='checkbox' />
+                Acrobatics
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_2">
+                <input id='id_skills_2' name='skills' type='checkbox' />
+                Animal Handling
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_3">
+                <input id='id_skills_3' name='skills' type='checkbox' />
+                Arcana
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_4">
+                <input id='id_skills_4' name='skills' type='checkbox' />
+                Athletics
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_5">
+                <input id='id_skills_5' name='skills' type='checkbox' />
+                Deception
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_6">
+                <input id='id_skills_6' name='skills' type='checkbox' />
+                History
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_7">
+                <input id='id_skills_7' name='skills' type='checkbox' />
+                Insight
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_8">
+                <input id='id_skills_8' name='skills' type='checkbox' />
+                Intimidation
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_9">
+                <input id='id_skills_9' name='skills' type='checkbox' />
+                Investigation
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_10">
+                <input id='id_skills_10' name='skills' type='checkbox' />
+                Medicine
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_11">
+                <input id='id_skills_11' name='skills' type='checkbox' />
+                Nature
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_12">
+                <input id='id_skills_12' name='skills' type='checkbox' />
+                Perception
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_13">
+                <input id='id_skills_13' name='skills' type='checkbox' />
+                Performance
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_14">
+                <input id='id_skills_14' name='skills' type='checkbox' />
+                Persuasion
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_15">
+                <input id='id_skills_15' name='skills' type='checkbox' />
+                Religion
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_16">
+                <input id='id_skills_16' name='skills' type='checkbox' />
+                Sleight of Hand
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_17">
+                <input id='id_skills_17' name='skills' type='checkbox' />
+                Stealth
+            </label>
+        </li>
+        <li>
+            <label for="id_skills_18">
+                <input id='id_skills_18' name='skills' type='checkbox' />
+                Survival
+            </label>
+        </li>
+    </ul>
+    <label for="id_language">Languages:</label>
+    <select id="id_language" name="language"
+    multiple="multiple">
+    <optgroup label="Common">
+        <option value="12">Common</option>
+        <option value="9">Druidic</option>
+        <option value="5">Dwarvish</option>
+        <option value="13">Elvish</option>
+        <option value="19">Giant</option>
+        <option value="11">Gnomish</option>
+        <option value="16">Goblin</option>
+        <option value="7">Halfling</option>
+        <option value="22">Orc</option>
+    </optgroup>
+    <optgroup label="Exotic">
+        <option value="10">Abyssal</option>
+        <option value="18">Auran</option>
+        <option value="4">Celestial</option>
+        <option value="2">Deep Speech</option>
+        <option value="6">Draconic</option>
+        <option value="8">Infernal</option>
+        <option value="3">Primordial</option>
+        <option value="14">Sylvan</option>
+        <option value="1">Undercommon</option>
+    </optgroup>
+    </select>
+    <label for='id_alignment'>Alignment:</label>
+    {{ form.alignment }}
+    <label for='id_dexterity'>Dexterity:</label>
+    <input id='id_dexterity' name='dexterity'/>
+    <input type='button'
+           value='Reroll'
+           onclick="document.getElementById('id_dexterity').value = generateNumber()"/>
+    <label for='id_strength'>Strength:</label>
+    <input id='id_strength' name='strength'/>
+    <input type='button'
+           value='Reroll'
+           onclick="document.getElementById('id_strength').value = generateNumber()"/>
+    <label for='id_constitution'>Constitution:</label>
+    <input id='id_constitution' name='constitution'/>
+    <input type='button'
+           value='Reroll'
+           onclick="document.getElementById('id_constitution').value = generateNumber()"/>
+    <label for='id_charisma'>Charisma:</label>
+    <input id='id_charisma' name='charisma'/>
+    <input type='button'
+           value='Reroll'
+           onclick="document.getElementById('id_charisma').value = generateNumber()"/>
+    <label for='id_wisdom'>Wisdom:</label>
+    <input id='id_wisdom' name='wisdom'/>
+    <input type='button'
+           value='Reroll'
+           onclick="document.getElementById('id_wisdom').value = generateNumber()"/>
+    <label for='id_intelligence'>Intelligence:</label>
+    <input id='id_intelligence' name='intelligence'/>
+    <input type='button'
+           value='Reroll'
+           onclick="document.getElementById('id_intelligence').value = generateNumber()"/>
+    <input type='button'
+           value='Reroll all'
+           onclick="rerollAll()"/>
+    {{ form.armor }}
+    {{ form.shield }}
+    <label for id='id_hp'>Health:</label>
+    {{form.hp}}
+    <label for id='id_age'>Age:</label>
+    {{form.age}}
+    <label for id='id_weight'>Weight:</label>
+    {{form.weight}}
+    <label for id='id_height'>Height:</label>
+    {{form.height}}
+    <label for id='id_experience'>Experience:</label>
+    {{form.experience}}
+    <input type='submit' value='Create Character' />
+
+    {{form.errors}}
+    {{form.non_field_errors}}
+</form>
+
+<script src="{% static 'js/input-filters.min.js' %}"></script>
+<script src="{% static 'js/character-main.js' %}"></script>
+<script type='text/javascript'>
+
+</script>
+<script>
+$(document).ready(function(){
+    $("#id_armor").select2();
+    $("#id_gender").select2();
+    $("#id_race").select2();
+    $("#id_background").select2();
+    $("#id_subrace").select2({
+        minimumResultsForSearch: Infinity
+    });
+    $("#id_alignment").select2({
+        minimumResultsForSearch: Infinity
+    });
+    $("#id_shield").select2({
+        minimumResultsForSearch: Infinity
+    });
+    $("#id_language").select2({
+        minimumResultsForSearch: 1,
+        maximumSelectionLength: 2,
+        placeholder: "Choose 2 languages"
+    });
+    $("#id_c_class").select2({
+        minimumResultsForSearch: Infinity,
+    });
+});
+$(document).ready(function(){
+  $('input').iCheck({
+    checkboxClass: 'icheckbox_square-red',
+    radioClass: 'iradio_square-red',
+    increaseArea: '20%'
+  });
+});
+</script>
+    {% endblock %}

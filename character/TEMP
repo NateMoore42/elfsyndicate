@@ -1,0 +1,40 @@
+def generate_stat(self):
+    stats = [
+        self.dexterity, self.strength, self.constitution,
+        self.charisma, self.intelligence, self.wisdom
+    ]
+    for stat in stats:
+        if self.stat == stat:
+            stat = random.randint(6, 18)
+            self.stat = stat
+            self.stat_modifier = -5
+            self.stat_modifier += self.stat * 0.5
+            logging.debug('Stat value is %s and modifier is %s' % (stat, str(math.floor(self.stat_modifier))) + '.\n')
+        return stat, self.stat
+def generate_hp(self):
+    for c_class in ALL_CLASSES:
+        self.hp = PRIMARY_STATS.c_class.objects.get(HIT_DICE)
+        def get_stat_modifier(self):
+            stats = {
+                self.dexterity: 'dexterity',
+                self.strength: 'strength',
+                self.constitution: 'constitution',
+                self.charisma: 'charisma',
+                self.intelligence: 'intelligence',
+                self.wisdom: 'wisdom',
+            }
+            for stat in stats:
+                if stat is not None:
+                    try:
+                        logging.debug(stats[stat])
+                        self.stat = stat
+                        self.stat_modifier = -5
+                        self.stat_modifier += self.stat * 0.5
+                        logging.debug('Modifier value generated.')
+                        logging.debug('Stat value is %s and modifier is %s' % (stat, str(math.floor(self.stat_modifier))) + '.\n')
+                    except:
+                        logging.debug('Some sort of error occured.')
+                else:
+                    logging.debug('Stat(s) not detected. Generating random stat(s).')
+                    self.generateStat()
+            return stat

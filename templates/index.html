@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %}DND - Character Create{% endblock %}
+{% block register_active %}active{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+<div class="background">
+  {% include 'nav.html' %}
+  <div class="container w-container">
+    <div class="hero-container">
+      <div class="hero-text">
+        <h1 class="hero-header"><span class="hero-header-span">ELF</span>SYNDICATE</h1>
+        <h1 class="hero-subheader">Let the good times roll.</h1>
+        <p class="hero-paragraph"><strong>ElfSyndicate</strong>&nbsp;is an online platform designed to streamline and improve player experience in conventional Dungeons and Dragons gameplay. Spend less time worrying about whether your character can use those spells, whether you have enough arrows in your quiver, or arguing whether that monster is close enough for an opportunity attack, and spend more time playing the game.</p>
+      </div>
+      <div class="hero-left">
+        <p class="hero-paragraph right"><strong>Registration takes seconds</strong>&nbsp;
+          <br>and our intelligent character creation process will have you
+          <br><strong class="paragraph-important">ready to play in&nbsp;under 3 minutes.</strong>
+        </p><a class="hero-button w-button" href="{% url 'accounts:register' %}">Create your free account now</a>
+      </div>
+    </div>
+    <div class="plug-section">
+      <div class="one plug-left">
+        <h1 class="plug-header">Simple Tools</h1>
+        <h3 class="plug-subheader">Take your game sessions to the next level.</h3>
+        <p class="plug-paragraph-left-1">Whether you're a player or the DM you'll have access to our powerful, simple macros and trackers at your fingertips.</p>
+      </div>
+      <div class="one plug-right"><img class="plug-image-right-1 w-preserve-3d" src="{% static 'images/frankenstein.svg' %}" width="100">
+        <p class="plug-paragraph-right-1">Create and track a horde of enemies with one click.</p>
+      </div>
+    </div>
+    <div class="middle plug-section">
+      <div class="plug-left two">
+        <h1 class="middle plug-header">Dynamic Character Sheets</h1>
+        <h3 class="middle plug-subheader">Spend more time playing, not writing.</h3>
+        <p class="middle plug-paragraph-left-1">We all know how annoying it can be having to update your sheet every time you get a new item, level up, or start to multi-class. Our dynamic character sheets automatically update your information any time an event occurs in game.</p>
+      </div>
+      <div class="plug-right two"><img class="plug-image-right-1" src="{% static 'images/vampire.svg' %}" width="100">
+        <p class="middle plug-paragraph-right-1">Don't like automation? You can toggle off automatic updating for a manual experience as well.</p>
+      </div>
+    </div>
+    <div class="plug-section">
+      <div class="one plug-left">
+        <h1 class="plug-header">Anyone can join</h1>
+        <h3 class="plug-subheader">Start playing within minutes.</h3>
+        <p class="plug-paragraph-left-1">Die-hard Windows user?
+          <br>Swear by your Mac OSx?
+          <br>All you need is a web browser and you're ready to play. The entire Elf Syndicate system runs in real-time directly in your browser with no need to download any files what-so-ever.</p>
+      </div>
+      <div class="one plug-right"><img class="plug-image-right-1 w-preserve-3d" src="{% static 'images/nurse.svg' %}" width="100">
+        <p class="plug-paragraph-right-1">Simply send your friends a link and start playing together within minutes, not hours.</p>
+      </div>
+    </div>
+    <div class="guarantee-section">
+      <div class="guarantee left"><img class="dice guarantee-image" src="{% static 'images/dice-d20.svg' %}" width="150">
+        <h1 class="guarantee-header">Truly Random Dice</h1>
+        <p class="guarantee-text">By measuring the quantum fluctuations inside of a quantum vacuum we can guarantee you are receiving truly, 100% random numbers with every roll. Really.</p><a class="guarantee-button w-button w-preserve-3d" href="#">Learn More</a>
+      </div>
+      <div class="guarantee middle"><img class="ad-free guarantee-image" src="{% static 'images/cancel.svg' %}" width="150">
+        <h1 class="guarantee-header">Completely Ad-Free</h1>
+        <p class="guarantee-text">We believe that you deserve to enjoy a lifetime, ad-free experience. Never have annoying popups, banners, or videos interfering with your gameplay.</p><a class="guarantee-button w-button" href="#">More Information</a>
+      </div>
+      <div class="guarantee"><img class="guarantee-image" src="{% static 'images/file-document-box.svg' %}" width="150">
+        <h1 class="guarantee-header">Extensive Documentation</h1>
+        <p class="guarantee-text">Not sure about how to use any of the sites tools or features? Not up to scratch on your game knowledge? We have everything covered in our docs.</p><a class="guarantee-button w-button" href="#">View Docs</a>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="footer-block left">
+        <h1 class="footer-header">About ElfSyndicate</h1>
+        <p class="footer-text">All of us here at ElfSyndicate believe that the best parts of games happen when you're playing them, not messing around with character sheets. We strive to automate much of the boring stuff so that you can spend more time playing, and less time arguing about which monster you attacked and whether or not you have 14 arrows left or 15.</p>
+      </div>
+      <div class="footer-block middle">
+        <h1 class="footer-header">Connect with us</h1>
+        <p class="footer-text">Check us out on our social media to keep up to date with all of the latest announcements.</p>
+        <div class="icon-container"><img class="footer-social-icon" src="{% static 'images/twitter-box.svg' %}" width="50"><img class="footer-social-icon" src="{% static 'images/facebook-box.svg' %}" width="50"><img class="footer-social-icon" src="{% static 'images/youtube-play.svg' %}" width="50"><img class="footer-social-icon" src="{% static 'images/google-plus-box.svg' %}" width="50">
+        </div>
+      </div>
+      <div class="footer-block right">
+        <h1 class="footer-header">Join the club</h1>
+        <p class="footer-text">Sign up for our newsletter to get information on all the new goodies delivered straight to your inbox. We will never give out your email or send you spam, we're not jerks.</p>
+        <div class="w-form">
+          <form data-name="Email Form" id="email-form" name="email-form">
+            <input class="newsletter-form w-input" data-name="Email" id="email" maxlength="256" name="email" required="required" type="email">
+            <input class="email-button guarantee-button w-button" data-wait="Please wait..." type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-footer"><a class="footer-link" href="#">Terms of Service</a><a class="footer-link" href="#">Privacy Policy</a><a class="footer-link" href="#">FAQ</a><a class="footer-link" href="#">Acknowledgements</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

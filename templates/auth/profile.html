@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
+
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+{% block register_active %}active{% endblock %}
+{% block body %}
+<h1> WORKING </h1>
+<h1>{{ user.username }}</h1>
+<div id="test">
+  {% render_bundle 'main' %}
+</div>
+<div class="profile">
+    <div class="picture">
+        <div class="description">
+            {% if user.first_name and user.last_name %}
+            <h4>{{ user.first_name }}{{ user.last_name }}</h4>
+            {% endif %}
+            <p>{{ user.description }}</p>
+            <p>
+                {{ user.characters }}
+            </p>
+            <img src="{{MEDIA_URL}}{{user.profile.profile_picture}}"/>
+        </div>
+    </div>
+</div>
+{% block active_user %}
+{% if user.is_authenticated %}
+    <p>Welcome, {{ request.user.username }}  <a href="{% url 'accounts:logout' %}">[logout]</a></p>
+    <a href='/accounts/profile/edit/{{user.username}}'>[edit profile]</a>
+    <a href='/characters/create/'>[create a character]</a>
+{% else %}
+    <p>Welcome, Guest <a href="{% url 'accounts:login' %}">[login]</a></p>
+{% endif %}
+{% endblock %}
+{% endblock %}

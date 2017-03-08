@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Olympifit - Register{% endblock %}
+{% block register_active %}active{% endblock %}
+{% block head %}
+
+{% load staticfiles %}
+<link href="{% static 'css/register-login.css' %}" rel="stylesheet" />
+{% endblock %}
+{% block body %}
+<body>
+  <div class="registration-background">
+    <div class="registration-container w-container">
+      <h1 class="registration-header">LOG IN</h1>
+      <div class="w-form">
+        <form class="form-container w-clearfix" action method="POST">
+          {% csrf_token %}
+          <input
+          class="block form-field w-input {% if form.errors %}error{%endif%}"
+          id="id_email"
+          maxlength="256"
+          name="email"
+          placeholder=" {% if email.form.errors %}
+                        Email
+                        {{form.email.errors.as_text}}
+                        {% else %}Email{%endif%} "
+          type="email"
+          required
+          value="{{User.email}}">
+
+          <input
+          class="block form-field w-input {% if form.errors %}error{%endif%}"
+          id="id_password"
+          name="password"
+          placeholder=" {% if password.form.errors %}
+                        Password
+                        {{form.password.errors.as_text}
+                        {% else %}Password{%endif%}"
+          required
+          type="password"
+          value="">
+
+          <button
+          class="form-button w-button"
+          style="width:200px;"
+          type="submit"
+          value="Submit">LOG IN</button>
+          {{ form.non_field_errors }}
+          <!--
+          <input
+          class="form-button w-button"
+          data-wait="Please wait..."
+          type="submit"
+          value="Register My Account">-->
+
+          <p class="form-paragraph">Don't have an account? Register <a href="{% url 'accounts:register' %}" class="form-link">here</a>.</p>
+
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+
+{% endblock %}
