@@ -42,6 +42,7 @@ urlpatterns += [
 
     url("^characters/", include("character.urls", namespace='character')),
     url("^accounts/", include('Auth.urls', namespace='accounts')),
+
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
     # This pattern gives us a normal ``Page`` object, so that your
@@ -81,7 +82,7 @@ urlpatterns += [
     # from it, and use them directly below instead of using
     # ``mezzanine.urls``.
     url("^", include("mezzanine.urls")),
-
+    url(r"^progressbarupload/", include('progressbarupload.urls')),
     # MOUNTING MEZZANINE UNDER A PREFIX
     # ---------------------------------
     # You can also mount all of Mezzanine's urlpatterns under a

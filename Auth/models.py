@@ -58,6 +58,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = 'user'
         verbose_name_plural = 'users'
 
+    def __unicode__(self):
+        return str(self.username)
+
     @models.permalink
     def get_absolute_url(self):
         return "/accounts/profile/%s" % username
@@ -82,6 +85,12 @@ class Profile(models.Model):
                                         blank=True)
     dob = models.DateField(('birthday'), blank=True, null=True)
 
+    class Meta:
+        verbose_name = 'profile'
+        verbose_name_plural = 'profiles'
+
+    def __unicode__(self):
+        return str(self.user)
 
     def calculate_age(self):
         today = date.today()

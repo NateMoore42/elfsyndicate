@@ -2,7 +2,7 @@ import re, random
 
 from django import forms
 from django.forms import ModelForm
-from character.models import Character, Language, Skills, CharClass
+from character.models import *
 from django.utils.translation import ugettext_lazy as _
 from character.variables.vars import *
 
@@ -20,6 +20,7 @@ class CreationForm(forms.ModelForm):
 
     language = forms.ModelMultipleChoiceField(queryset=Language.objects.all())
     skills = forms.ModelMultipleChoiceField(queryset=Skills.objects.all(), widget=forms.CheckboxSelectMultiple)
+    feats = forms.ModelMultipleChoiceField(queryset=Feats.objects.all())
 
     c_class = forms.ModelMultipleChoiceField(queryset=CharClass.objects.all())
     race = forms.ChoiceField(choices=ALL_RACES, required=True)
@@ -41,7 +42,9 @@ class CreationForm(forms.ModelForm):
                   'age', 'weight', 'height', 'experience', 'language',
                   'c_class', 'race', 'subrace', 'gender', 'description',
                   'alignment', 'dexterity', 'strength', 'constitution',
-                  'charisma', 'wisdom', 'intelligence', 'skills')
+                  'charisma', 'wisdom', 'intelligence', 'skills',
+                  'ideals', 'bonds', 'p_traits', 'flaws', 'feats',
+                  'movement', 'can_fly', 'character_portrait')
 
         exclude = ('player',)
 

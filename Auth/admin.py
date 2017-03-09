@@ -43,6 +43,8 @@ class ProfileAdmin(admin.ModelAdmin):
         }),
     )
     form = ProfileForm
+    change_form_template = 'progressbarupload/change_form.html'
+    add_form_template = 'progressbarupload/change_form.html'
 
     list_display = ['user', 'first_name', 'last_name', 'gender', 'dob',]
 

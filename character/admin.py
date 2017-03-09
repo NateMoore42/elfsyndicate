@@ -46,6 +46,11 @@ class InventoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Inventory, InventoryAdmin)
 
+class FeatAdmin(bulk_admin.BulkModelAdmin):
+    list_display = ['feat']
+
+admin.site.register(Feats, FeatAdmin)
+
 class LanguageAdmin(bulk_admin.BulkModelAdmin):
     list_display = ['language', 'language_script']
 

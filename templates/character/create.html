@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load render_bundle from webpack_loader %}
+
 {% block title %}Character Create{% endblock %}
 {% block register_active %}active{% endblock %}
 
@@ -14,7 +16,7 @@
     <input type='submit' value='submit' />
 </form>-->
 
-<div id="test"></div>
+
 <form action method='POST'>
     {% csrf_token %}
     <label for"id_c_name">Character Name:</label>
@@ -26,130 +28,15 @@
     {% for class in form.c_class %}
         {{class}}
     {% endfor %}
+    <label for="id_gender">Gender:</label>
     {{ form.gender }}
-    <label for='id_race'>Race:</label>
-    {{form.race}}
-    <select id='id_subrace' name='subrace' required>
-    <option value='Dragonborn'>
-      Dragonborn
-    </option>
-    <option value='Dragonborn Revenant'>
-      Dragonborn Revenant
-    </option>
-    </select>
+    <div id="race">
+      {% render_bundle 'main' %}
+    </div>
     <label for='id_background'>Background:</label>
     {{ form.background }}
     <label for='id_skills'>Skills:</label>
-    <ul id='id_skills'>
-        <li>
-            <label for="id_skills_0">
-                <input id='id_skills_0' name='skills' type='checkbox' />
-                Acrobatics
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_2">
-                <input id='id_skills_2' name='skills' type='checkbox' />
-                Animal Handling
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_3">
-                <input id='id_skills_3' name='skills' type='checkbox' />
-                Arcana
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_4">
-                <input id='id_skills_4' name='skills' type='checkbox' />
-                Athletics
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_5">
-                <input id='id_skills_5' name='skills' type='checkbox' />
-                Deception
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_6">
-                <input id='id_skills_6' name='skills' type='checkbox' />
-                History
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_7">
-                <input id='id_skills_7' name='skills' type='checkbox' />
-                Insight
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_8">
-                <input id='id_skills_8' name='skills' type='checkbox' />
-                Intimidation
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_9">
-                <input id='id_skills_9' name='skills' type='checkbox' />
-                Investigation
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_10">
-                <input id='id_skills_10' name='skills' type='checkbox' />
-                Medicine
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_11">
-                <input id='id_skills_11' name='skills' type='checkbox' />
-                Nature
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_12">
-                <input id='id_skills_12' name='skills' type='checkbox' />
-                Perception
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_13">
-                <input id='id_skills_13' name='skills' type='checkbox' />
-                Performance
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_14">
-                <input id='id_skills_14' name='skills' type='checkbox' />
-                Persuasion
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_15">
-                <input id='id_skills_15' name='skills' type='checkbox' />
-                Religion
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_16">
-                <input id='id_skills_16' name='skills' type='checkbox' />
-                Sleight of Hand
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_17">
-                <input id='id_skills_17' name='skills' type='checkbox' />
-                Stealth
-            </label>
-        </li>
-        <li>
-            <label for="id_skills_18">
-                <input id='id_skills_18' name='skills' type='checkbox' />
-                Survival
-            </label>
-        </li>
-    </ul>
+    {{form.skills}}
     <label for="id_language">Languages:</label>
     <select id="id_language" name="language"
     multiple="multiple">
@@ -223,6 +110,8 @@
     {{form.height}}
     <label for id='id_experience'>Experience:</label>
     {{form.experience}}
+    {{form.feats}}
+    {{form.movement}}
     <input type='submit' value='Create Character' />
 
     {{form.errors}}
@@ -238,11 +127,7 @@
 $(document).ready(function(){
     $("#id_armor").select2();
     $("#id_gender").select2();
-    $("#id_race").select2();
     $("#id_background").select2();
-    $("#id_subrace").select2({
-        minimumResultsForSearch: Infinity
-    });
     $("#id_alignment").select2({
         minimumResultsForSearch: Infinity
     });

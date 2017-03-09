@@ -14,8 +14,6 @@ class CharEditForm(forms.Form):
 
 class InvEditForm(forms.Form):
     error_css_class = 'error'
-
-    currency_amount = forms.IntegerField()
     vehicles = forms.ModelMultipleChoiceField(
                                         queryset=Vehicles.objects.all())
     m_items = forms.ModelMultipleChoiceField(

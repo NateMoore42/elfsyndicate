@@ -148,7 +148,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # The numeric mode to set newly-uploaded files to. The value should be
 # a mode you'd pass directly to os.chmod.
 FILE_UPLOAD_PERMISSIONS = 0o644
-
+FILE_UPLOAD_HANDLERS = (
+    "progressbarupload.uploadhandler.ProgressBarUploadHandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler"
+)
 
 #############
 # DATABASES #
@@ -273,6 +277,7 @@ INSTALLED_APPS = (
     "items",
     "rest_framework",
     "webpack_loader",
+    'progressbarupload',
 )
 
 # List of middleware classes to use. Order is important; in the request phase,

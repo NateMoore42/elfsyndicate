@@ -46,6 +46,10 @@ class CharacterManager(models.Model):
                                 intelligence=intelligence, wisdom=wisdom,
                                 constitution=constitution, strength=strength,
 
+                                ideals=ideals, p_traits=p_traits, flaws=flaws,
+                                bonds=bonds, movement=movement, can_fly=can_fly,
+                                feats=feats,
+
                                 skills=skills,
                                 character_portrait=character_portrait,
                                 slug_id=slug_id,
@@ -61,6 +65,8 @@ class CharacterManager(models.Model):
                          dexterity, strength, constitution,
                          charisma, wisdom, intelligence,
                          skills, character_portrait,
+                         ideals, p_traits, flaws, bonds,
+                         movement, can_fly, feats,
                          slug_id):
 
         return self._create_character(player, level, c_name, hp,
@@ -71,6 +77,9 @@ class CharacterManager(models.Model):
                                       dexterity, strength, constitution,
                                       charisma, wisdom, intelligence,
                                       skills, character_portrait,
+
+                                      ideals, p_traits, flaws, bonds,
+                                      movement, can_fly, feats,
                                       slug_id)
 
 class Character(models.Model):
@@ -80,16 +89,17 @@ class Character(models.Model):
     hp = models.IntegerField(default=10)
     experience = models.IntegerField(default=0)
 
-    age = models.IntegerField()
-    height = models.IntegerField()
-    weight = models.IntegerField()
+    age = models.IntegerField(default=21, null=True, blank=True)
+    height = models.IntegerField(default=192, null=True, blank=True)
+    weight = models.IntegerField(default=200, null=True, blank=True)
 
     language = models.ManyToManyField('Language', blank=True)
     skills = models.ManyToManyField('Skills', blank=True)
     c_class = models.ManyToManyField('CharClass', blank=False, verbose_name="class")
+    feats = models.ManyToManyField('Feats', blank=True, verbose_name="feats")
 
     race = models.CharField(max_length=25, choices=ALL_RACES)
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, blank=True, null=True)
     ideals = models.CharField(max_length=200, blank=True)
     p_traits = models.CharField(max_length=200, blank=True)
     flaws = models.CharField(max_length=200, blank=True)
@@ -112,8 +122,6 @@ class Character(models.Model):
     character_portrait = models.ImageField(
             upload_to='character-portraits/%Y/%m/%d', blank=True, null=True)
 
-    feats = models.CharField(max_length=10, choices=ALL_FEATS)
-
     slug_id = models.CharField(default=get_random_string(length=12), primary_key=True, max_length=12)
 
     objects = CharacterManager()
@@ -122,7 +130,7 @@ class Character(models.Model):
         verbose_name = _('character')
         verbose_name_plural = _('characters')
 
-    def __str__(self):
+    def __unicode__(self):
         return u'%s' % self.c_name
 
     def get_absolute_url(self):
@@ -157,11 +165,22 @@ class Inventory(models.Model):
         verbose_name = _('inventory')
         verbose_name_plural = _('inventories')
 
-    def __str__(self):
+    def __unicode__(self):
         return u"%s's Inventory" % self.character
 
     def get_by_natural_key(self, character):
         return self.get(character__iexact=character)
+
+class Feats(models.Model):
+    feat = models.CharField(max_length=10, choices=ALL_FEATS, null=True)
+    effect = models.TextField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('feat')
+        verbose_name_plural = _('feats')
+
+    def __unicode__(self):
+        return str(self.feat)
 
 class CharClass(models.Model):
     c_class = models.CharField(max_length=25, choices=ALL_CLASSES)
@@ -170,17 +189,18 @@ class CharClass(models.Model):
         verbose_name = _('class')
         verbose_name_plural = _('classes')
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.c_class)
 
 class Skills(models.Model):
     skills = models.CharField(max_length=50, choices=ALL_SKILLS)
     check_type = models.CharField(max_length=50, choices=ALL_CHECK_TYPES)
+
     class Meta:
         verbose_name = _('skill')
         verbose_name_plural = _('skills')
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.skills)
 
 class Language(models.Model):
@@ -191,7 +211,7 @@ class Language(models.Model):
         verbose_name = _('language')
         verbose_name_plural = _('languages')
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.language)
 
 class Weapon(models.Model):
@@ -216,7 +236,7 @@ class Weapon(models.Model):
         verbose_name = 'weapon'
         verbose_name_plural = 'weapons'
 
-    def __str__(self):
+    def __unicode__(self):
         return str(self.weapon)
 
     def _check_proficiency(self, *args, **kwargs):

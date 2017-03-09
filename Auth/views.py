@@ -74,10 +74,12 @@ def user_profile_edit(request, username):
     if request.user.username == user.username:
         if request.method == 'POST':
             uform = UserForm(request.POST, instance=request.user)
-            pform = ProfileForm(request.POST, instance=request.user.profile)
+            pform = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
             if uform.is_valid() and pform.is_valid():
                 uform.save()
                 pform.save()
+                print request.FILES
+                print user.profile.profile_picture.url
         else:
             uform = UserForm(instance=request.user)
             pform = ProfileForm(instance=request.user.profile)

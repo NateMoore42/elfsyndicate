@@ -37,7 +37,7 @@ def character_create(request):
             character = form.save(commit=False)
             character.player = player
             character.save()
-            return redirect('/characters/character/%s' % character.c_name)
+            return redirect('/characters/character/%s/%s' % (character.pk, character.c_name))
     else:
         form = CreationForm()
     return render(request, 'character/create.html', {

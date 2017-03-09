@@ -17,19 +17,25 @@
             {% endif %}
             <p>{{ user.description }}</p>
             <p>
-                {{ user.characters }}
+                {% for character in user.characters %}
+                {{ character }}
+                {% endfor %}
             </p>
+            {% if user.profile.profile_picture %}
             <img src="{{MEDIA_URL}}{{user.profile.profile_picture}}"/>
+            {% else %}
+            <p>
+              Edit your profile and set a profile picture :)
+            </p>
+            {% endif %}
         </div>
     </div>
 </div>
 {% block active_user %}
-{% if user.is_authenticated %}
+{% if request.user.username == user.username %}
     <p>Welcome, {{ request.user.username }}  <a href="{% url 'accounts:logout' %}">[logout]</a></p>
     <a href='/accounts/profile/edit/{{user.username}}'>[edit profile]</a>
     <a href='/characters/create/'>[create a character]</a>
-{% else %}
-    <p>Welcome, Guest <a href="{% url 'accounts:login' %}">[login]</a></p>
 {% endif %}
 {% endblock %}
 {% endblock %}

@@ -16,4 +16,5 @@ jquery.mask.min.js
 /static/images
 /static/font-awesome
 /static/css
+/static/js/webpack_bundles
 /node_modules
